@@ -20,7 +20,6 @@ cassandra_heap_newsize: null
 # cassandra.yaml basic configuration parameters
 cassandra_cluster_name: "Test Cluster"
 cassandra_num_tokens: "256"
-cassandra_initial_token: null
 cassandra_listen_address: "localhost"
 cassandra_seeds: ["localhost"]
 cassandra_endpoint_snitch: "SimpleSnitch"                               # in case of cluster: RackInferringSnitch
@@ -28,6 +27,10 @@ cassandra_endpoint_snitch: "SimpleSnitch"                               # in cas
 cassandra_rpc_address: "localhost"
 cassandra_concurrent_reads: "32"
 cassandra_concurrent_writes: "32"
+
+cassandra_data_file_directories: "/var/lib/cassandra/data"
+cassandra_commitlog_directory: "/var/lib/cassandra/commitlog"
+cassandra_saved_caches_directory: "/var/lib/cassandra/saved_caches"
 
 # cassandra.yaml advanced configuration parameters
 cassandra_hinted_handoff_enabled: "true"
