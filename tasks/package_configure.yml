@@ -10,8 +10,32 @@
   with_items:
     - "cassandra-env.sh"
     - "cassandra.yaml"
+    - "system_auth.cql"
+    - "auth_users.cql"
 
 - name: Restart cassandra
   service:
     name: cassandra
     state: restarted
+
+- name: change system auth replication
+  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -f /etc/cassandra/system_auth.cql
+
+- name: repair node confirm
+  pause: prompt="Make sure to start nodetool repair, it should invoke in cluster node by node"
+
+- name: repair node
+  shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }} repair
+
+- name: change authenticator
+  lineinfile: dest=/etc/cassandra/sudoers state=present regexp='^authenticator' line='authenticator: PasswordAuthenticator'
+
+- name: restart after changed authenticator
+  service:
+    name: cassandra
+    state: restarted
+
+- name: create new superuser and disable cassandra
+  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -u cassandra -p cassandra -f /etc/cassandra/auth_users.cql
+
+

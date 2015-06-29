@@ -1,0 +1,2 @@
+ALTER KEYSPACE "system_auth" WITH REPLICATION =
+  { 'class' : 'SimpleStrategy', 'replication_factor' : {{cassandra_cluster_size}} };

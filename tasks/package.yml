@@ -19,9 +19,15 @@
     repo: "deb http://debian.datastax.com/community stable main"
     state: present
 
-- name: Cassandra | Install the cassandra package
+- name: Cassandra | Install the dsc21 package
   apt:
-    name: "cassandra={{ cassandra_version }}"
+    name: "dsc21={{ dsc_version }}"
+    state: present
+    update_cache: yes
+
+- name: Cassandra | Install the cassandra-tools package
+  apt:
+    name: "cassandra-tools={{ cassandra_tools_version }}"
     state: present
     update_cache: yes
 
