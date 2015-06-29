@@ -28,7 +28,11 @@
   shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }} repair
 
 - name: change authenticator
-  lineinfile: dest=/etc/cassandra/sudoers state=present regexp='^authenticator' line='authenticator: PasswordAuthenticator'
+  lineinfile:
+    dest: /etc/cassandra/sudoers
+    state: present
+    regexp: '^authenticator'
+    line: 'authenticator: PasswordAuthenticator'
 
 - name: restart after changed authenticator
   service:
