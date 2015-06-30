@@ -21,6 +21,13 @@
 - name: clean cassandra directories
   shell: rm -rf {{ cassandra_data_file_directories }} {{ cassandra_commitlog_directory }} {{ cassandra_saved_caches_directory }}
 
+- name: change authenticator
+  lineinfile:
+    dest: /etc/cassandra/cassandra.yaml
+    state: present
+    regexp: '^authenticator'
+    line: 'authenticator: PasswordAuthenticator'
+
 - name: restart cassandra to join cluster
   pause: prompt="Make sure to restart node for cluster"
 
@@ -30,20 +37,13 @@
     state: restarted
 
 - name: change system auth replication
-  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -f /etc/cassandra/system_auth.cql
+  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }}  -u cassandra -p cassandra -f /etc/cassandra/system_auth.cql
 
 - name: repair node confirm
   pause: prompt="Make sure to start nodetool repair, it should invoke in cluster node by node"
 
 - name: repair node
-  shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }} repair
-
-- name: change authenticator
-  lineinfile:
-    dest: /etc/cassandra/sudoers
-    state: present
-    regexp: '^authenticator'
-    line: 'authenticator: PasswordAuthenticator'
+  shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }}  -u cassandra -pw cassandra repair
 
 - name: restart after changed authenticator
   service:
