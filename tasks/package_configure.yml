@@ -36,6 +36,9 @@
     name: cassandra
     state: restarted
 
+- name: waiting restart cassandra to join cluster
+  pause: seconds=40 prompt="waiting restart cassandra"
+
 - name: change system auth replication
   shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }}  -u cassandra -p cassandra -f /etc/cassandra/system_auth.cql
 
