@@ -19,6 +19,12 @@
     repo: "deb http://debian.datastax.com/community stable main"
     state: present
 
+- name: Cassandra | remove the dsc21 package
+  apt:
+    name: "dsc21={{ dsc_version }}"
+    state: absent
+    purge: yes
+
 - name: Cassandra | Install the dsc21 package
   apt:
     name: "dsc21={{ dsc_version }}"

@@ -48,6 +48,9 @@
 - name: repair node
   shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }}  -u cassandra -pw cassandra repair
 
+- name: rebuild node
+  shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }}  -u cassandra -pw cassandra rebuild
+
 - name: restart after changed authenticator
   service:
     name: cassandra
