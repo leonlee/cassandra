@@ -46,10 +46,10 @@
   pause: prompt="Make sure to start nodetool repair, it should invoke in cluster node by node"
 
 - name: repair node
-  shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }}  -u cassandra -pw cassandra repair
+  shell: /usr/bin/nodetool repair
 
 - name: rebuild node
-  shell: /usr/bin/nodetool -h {{ cassandra_listen_address }} -p {{ cassandra_native_transport_port }}  -u cassandra -pw cassandra rebuild
+  shell: /usr/bin/nodetool rebuild
 
 - name: restart after changed authenticator
   service:
