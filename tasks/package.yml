@@ -25,6 +25,9 @@
     state: absent
     purge: yes
 
+- name: clean cassandra directories
+  shell: rm -rf {{ cassandra_data_file_directories }} {{ cassandra_commitlog_directory }} {{ cassandra_saved_caches_directory }}
+
 - name: Cassandra | Install the dsc21 package
   apt:
     name: "dsc21={{ dsc_version }}"
