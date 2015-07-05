@@ -44,13 +44,4 @@
     - "dsc21={{ dsc_version }}"
     - "cassandra-tools={{ cassandra_tools_version }}"
 
-- name: confirm cleaned cassandra
-  pause: prompt="cleaned cassandra"
-
-- name: Cassandra | Install the cassandra-tools package
-  apt:
-    name:
-    state: present
-    update_cache: yes
-
 - include: package_configure.yml
