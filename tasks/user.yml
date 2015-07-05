@@ -21,7 +21,7 @@
     shell: /bin/bash
     state: present
 
-- name: Cassandra | Set the right directory permissions for the www directory
+- name: Cassandra | Set the right directory permissions for the user directory
   file:
     path: "{{cassandra_user_dir}}"
     owner: "{{cassandra_user}}"
