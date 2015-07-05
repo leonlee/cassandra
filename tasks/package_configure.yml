@@ -57,7 +57,7 @@
     state: restarted
 
 - name: waiting restart cassandra to join cluster
-  pause: seconds=40 prompt="waiting restart cassandra"
+  pause: seconds=70 prompt="waiting restart cassandra"
 
 - name: create new superuser and disable cassandra
   shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -u cassandra -p cassandra -f /etc/cassandra/auth_users.cql
