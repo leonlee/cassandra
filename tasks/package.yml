@@ -21,9 +21,13 @@
 
 - name: Cassandra | remove the dsc21 package
   apt:
-    name: "dsc21={{ dsc_version }}"
+    name: "{{item}}"
     state: absent
     purge: yes
+  with_items:
+    - "dsc21={{ dsc_version }}"
+    - "cassandra={{ cassandra_version }}"
+    - "cassandra-tools={{ cassandra_tools_version }}"
 
 - name: clean cassandra directories
   shell: rm -rf /etc/cassandra {{ cassandra_data_file_directories }} {{ cassandra_commitlog_directory }} {{ cassandra_saved_caches_directory }}
@@ -33,16 +37,19 @@
 
 - name: Cassandra | Install the dsc21 package
   apt:
-    name: "dsc21={{ dsc_version }}"
+    name: "{{item}}"
     state: present
     update_cache: yes
+  with_items:
+    - "dsc21={{ dsc_version }}"
+    - "cassandra-tools={{ cassandra_tools_version }}"
 
 - name: confirm cleaned cassandra
   pause: prompt="cleaned cassandra"
 
 - name: Cassandra | Install the cassandra-tools package
   apt:
-    name: "cassandra-tools={{ cassandra_tools_version }}"
+    name:
     state: present
     update_cache: yes
 
