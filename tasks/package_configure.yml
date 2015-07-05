@@ -53,9 +53,9 @@
     name: cassandra
     state: restarted
 
-- name: waiting after changed authenticator
-  pause: prompt="waiting after changed authenticator"
-
-- name: create new superuser and disable cassandra
-  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -u cassandra -p cassandra -f /etc/cassandra/auth_users.cql
+#- name: waiting after changed authenticator
+#  pause: prompt="waiting after changed authenticator"
+#
+#- name: create new superuser and disable cassandra
+#  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -u cassandra -p cassandra -f /etc/cassandra/auth_users.cql
 
