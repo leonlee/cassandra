@@ -19,6 +19,11 @@
     repo: "deb http://debian.datastax.com/community stable main"
     state: present
 
+- name: stop cassandra
+  service:
+    name: cassandra
+    state: stopped
+
 - name: Cassandra | remove the dsc21 package
   apt:
     name: "{{item}}"
