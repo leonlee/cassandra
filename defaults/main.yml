@@ -12,6 +12,9 @@ cassandra_group: "cassandra"
 cassandra_uid: 3455
 cassandra_gid: 3455
 
+cassandra_superuser: "gw"
+cassandra_superuser_pwd: "xor_2014"
+
 cassandra_user_dir: "/app/home/{{cassandra_user}}"
 cassandra_source_data_dir: "/app/cassandra"
 

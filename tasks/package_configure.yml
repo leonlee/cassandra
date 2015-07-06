@@ -39,8 +39,13 @@
 - name: waiting restart cassandra to join cluster
   pause: seconds=40 prompt="waiting restart cassandra before change system aut"
 
-- name: change system auth replication
+- name: change system auth replication at seed node
   shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }}  -u cassandra -p cassandra -f /etc/cassandra/system_auth.cql
+  when: cassandra_cluster_size == 1
+
+- name: change system auth replication at other nodes
+  shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }}  -u {{cassandra_superuser}} -p {{cassandra_superuser_pwd}} -f /etc/cassandra/system_auth.cql
+  when: cassandra_cluster_size != 1
 
 - name: repair node
   shell: /usr/bin/nodetool repair
