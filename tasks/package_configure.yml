@@ -19,7 +19,7 @@
     state: stopped
 
 - name: wait for stopping cassandra
-  pause: seconds=40 prompt="Make sure cassandra was stopped"
+  pause: seconds=80 prompt="Make sure cassandra was stopped"
 
 - name: change authenticator
   lineinfile:
@@ -37,7 +37,7 @@
     state: restarted
 
 - name: waiting restart cassandra to join cluster
-  pause: seconds=40 prompt="waiting restart cassandra before change system aut"
+  pause: seconds=80 prompt="waiting restart cassandra before change system aut"
 
 - name: change system auth replication at seed node
   shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }}  -u cassandra -p cassandra -f /etc/cassandra/system_auth.cql
@@ -59,7 +59,7 @@
     state: restarted
 
 - name: waiting after changed authenticator
-  pause: seconds=40 prompt="waiting after changed authenticator"
+  pause: seconds=80 prompt="waiting after changed authenticator"
 
 - name: create new superuser and disable cassandra
   shell: /usr/bin/cqlsh {{ cassandra_listen_address }} {{ cassandra_native_transport_port }} -u cassandra -p cassandra -f /etc/cassandra/auth_users.cql
